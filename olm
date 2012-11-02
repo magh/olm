@@ -20,27 +20,27 @@ my $add;
 sub parseLine {
 	my $li = shift;
 	# heading 1
-	if($li =~ m|^# (.*)|){
+	if($li =~ m|^# ([^#]*)|){
 		print "<h1>$1</h1>\n";
 	}
 	# heading 2
-	elsif($li =~ m|^## (.*)|){
+	elsif($li =~ m|^## ([^#]*)|){
 		print "<h2>$1</h2>\n";
 	}
 	# heading 3
-	elsif($li =~ m|^### (.*)|){
+	elsif($li =~ m|^### ([^#]*)|){
 		print "<h3>$1</h3>\n";
 	}
 	# heading 4
-	elsif($li =~ m|^#### (.*)|){
+	elsif($li =~ m|^#### ([^#]*)|){
 		print "<h4>$1</h4>\n";
 	}
 	# heading 5
-	elsif($li =~ m|^##### (.*)|){
+	elsif($li =~ m|^##### ([^#]*)|){
 		print "<h5>$1</h5>\n";
 	}
 	# heading 6
-	elsif($li =~ m|^###### (.*)|){
+	elsif($li =~ m|^###### ([^#]*)|){
 		print "<h6>$1</h6>\n";
 	}
 	# horizontal rule
