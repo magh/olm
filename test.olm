@@ -9,23 +9,17 @@ Horizontal rule:
 1. Ordered list 1
 2. Ordered list 2
 3. Ordered list 3
-4. Ordered list 4
-5. Ordered list 5
-6. Ordered list 6
-7. Ordered list 7
-8. Ordered list 8
-9. Ordered list 9
 
-- Unordered list 1
+* Unordered list 1
 - Unordered list 2
-- Unordered list 3
++ Unordered list 3
 
 	This
 	is a
-	code block
+	code block with html <strong>strong</strong>.
 
 *bold*
-+italic+
+_italic_
 -line-through-
 x Completed todotxt style
 

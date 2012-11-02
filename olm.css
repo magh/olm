@@ -1,0 +1,28 @@
+pre {
+  border: 1px solid #cacaca;
+  line-height: 1.2em;
+  font: 12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+  padding: 10px;
+  overflow:auto;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #FAFAFB;
+  color: #393939;
+  margin: 0px;
+}
+
+h1 {
+  border-bottom-style: solid;
+  border-bottom-color: black; 
+  border-bottom-width: 2px; 
+}
+
+h2 {
+  border-bottom-style: dashed;
+  border-bottom-color: black; 
+  border-bottom-width: 1px; 
+}

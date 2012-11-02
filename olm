@@ -12,6 +12,7 @@
 # css support for formating
 
 use strict;
+use HTML::Entities;
 
 my $old;
 my $add;
@@ -57,9 +58,9 @@ sub parseLine {
 		$add = "</ol>";
 	}
 	# list unordered
-	elsif($li =~ m|^- (.*)|){
+	elsif($li =~ m|^[\*\+-] (.*)|){
 		my $arg1 = $1;
-		if($old =~ m|^- |){
+		if($old =~ m|^[\*\+-] |){
 			print "<li>$arg1</li>\n";
 		}else{
 			print "<ul><li>$arg1</li>\n";
@@ -68,13 +69,13 @@ sub parseLine {
 	}
 	# code block
 	elsif($li =~ m|^\t(.*)|){
-		my $arg1 = $1;
+		my $arg1 = encode_entities($1);
 		if($old =~ m|^\t|){
 			print "$arg1\n";
 		}else{
-			print "<pre>$arg1\n";
+			print "<pre><code>$arg1\n";
 		}
-		$add = "</pre>";
+		$add = "</code></pre>";
 	}
 	# bold
 	elsif($li =~ m|^\*(.*)\*|){
@@ -82,7 +83,7 @@ sub parseLine {
 		print "<b>$1</b><br>\n";
 	}
 	# italic
-	elsif($li =~ m|^\+(.*)\+|){
+	elsif($li =~ m|^\_(.*)\_|){
 		#print "<em>$1</em>\n";
 		print "<i>$1</i><br>\n";
 	}
@@ -114,9 +115,22 @@ sub parseLine {
 
 sub printHeader {
 	print "<html>";
+	print "<head>";
+	print "<style>";
+	# .../olm.css
+	my $cssfile = "$0.css";
+        open(CSS, $cssfile);
+        while(<CSS>) {
+		print $_;
+        }
+        close(CSS);
+	print "</style>";
+	print "</head>";
+	print "<body>";
 }
 
 sub printFooter {
+	print "</body>";
 	print "</html>";
 }
 
