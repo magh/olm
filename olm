@@ -44,8 +44,11 @@ sub parseLine {
 		print "<h6>$1</h6>\n";
 	}
 	# horizontal rule
+	elsif($li =~ m|^===(.*)|){
+		print "<hr style=\"height:5px;\" />\n";
+	}
 	elsif($li =~ m|^---(.*)|){
-		print "<hr>\n";
+		print "<hr />\n";
 	}
 	# list ordered
 	elsif($li =~ m|^[0-9]\. (.*)|){
