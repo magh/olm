@@ -1,0 +1,140 @@
+#!/usr/bin/perl
+
+# one line markup
+# requirements:
+# one line formatting
+# HTML heading horizontal rules.
+# Underline and dash heading markup.
+# Automatic hard line breaks. Compact text.
+# Strike-through/overstrike.
+# Tab indent to code block.
+# Code block box.
+# css support for formating
+
+use strict;
+
+my $old;
+my $add;
+
+sub parseLine {
+	my $li = shift;
+	# heading 1
+	if($li =~ m|^# (.*)|){
+		print "<h1>$1</h1>\n";
+	}
+	# heading 2
+	elsif($li =~ m|^## (.*)|){
+		print "<h2>$1</h2>\n";
+	}
+	# heading 3
+	elsif($li =~ m|^### (.*)|){
+		print "<h3>$1</h3>\n";
+	}
+	# heading 4
+	elsif($li =~ m|^#### (.*)|){
+		print "<h4>$1</h4>\n";
+	}
+	# heading 5
+	elsif($li =~ m|^##### (.*)|){
+		print "<h5>$1</h5>\n";
+	}
+	# heading 6
+	elsif($li =~ m|^###### (.*)|){
+		print "<h6>$1</h6>\n";
+	}
+	# horizontal rule
+	elsif($li =~ m|^---(.*)|){
+		print "<hr>\n";
+	}
+	# list ordered
+	elsif($li =~ m|^[0-9]\. (.*)|){
+		my $arg1 = $1;
+		if($old =~ m|^[0-9]\. |){
+			print "<li>$arg1</li>\n";
+		}else{
+			print "<ol><li>$arg1</li>\n";
+		}
+		$add = "</ol>";
+	}
+	# list unordered
+	elsif($li =~ m|^- (.*)|){
+		my $arg1 = $1;
+		if($old =~ m|^- |){
+			print "<li>$arg1</li>\n";
+		}else{
+			print "<ul><li>$arg1</li>\n";
+		}
+		$add = "</ul>";
+	}
+	# code block
+	elsif($li =~ m|^\t(.*)|){
+		my $arg1 = $1;
+		if($old =~ m|^\t|){
+			print "$arg1\n";
+		}else{
+			print "<pre>$arg1\n";
+		}
+		$add = "</pre>";
+	}
+	# bold
+	elsif($li =~ m|^\*(.*)\*|){
+		#print "<strong>$1</strong>\n";
+		print "<b>$1</b><br>\n";
+	}
+	# italic
+	elsif($li =~ m|^\+(.*)\+|){
+		#print "<em>$1</em>\n";
+		print "<i>$1</i><br>\n";
+	}
+	# strike through/over strike
+	elsif($li =~ m|^-(.*)-|){
+		print "<span style=\"text-decoration: line-through;\">$1</span><br>\n";
+	}
+	# completed (todotxt)
+	elsif($li =~ m|^x (.*)|){
+		print "<span style=\"text-decoration: line-through;\">$1</span><br>\n";
+	}
+	# auto link urls
+# ^(((ht|f)tp(s?))\://)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|m
+# +il|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(/($|[a-zA-Z0-9\.
+# +\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$
+	elsif($li =~ m|(.*)(https?://[^ ]*)(.*)|){
+		print "$1 <a href=\"$2\">$2</a> $3<br>";
+	}
+	# not formated
+	else{
+		if($add){
+			print "$add";
+			$add = "";
+		}
+		print "$li<br>\n";
+	}
+	$old = $li;
+}
+
+sub printHeader {
+	print "<html>";
+}
+
+sub printFooter {
+	print "</html>";
+}
+
+if($ARGV[0]){
+	open(IN, $ARGV[0]);
+	printHeader();
+	while(<IN>) {
+		chomp($_);
+		parseLine($_);
+	}
+	printFooter();
+	close(IN);
+}else{
+	printHeader();
+	while(<STDIN>) {
+		chomp($_);
+		parseLine($_);
+	}
+	printFooter();
+}
+ 
