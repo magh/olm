@@ -1,0 +1,2 @@
+Todotxt support, i.e. highlight priority, project, context, completed, due. No sorting.
+How to handle code blocks, e.g. blocks with two new lines in them, blocks that doesnt want to use tab/spaces in front.
